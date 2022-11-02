@@ -39,7 +39,7 @@ public:
         else{
             for(int i=0;i<10;i++){
                 if(table[i].get_Name()==Name){
-                    table[index].set_Name("");table[index].set_age("");table[index].set_exp("");table[index].set_salary("");
+                    table[i].set_Name("");table[i].set_age("");table[i].set_exp("");table[i].set_salary("");
                     numElem--;
                 }
             }

@@ -39,7 +39,7 @@ int main(){
 
     HDyn.print();
     cout<<"--------------------------------\n";
-    HDyn.remove("Mina");
+    HDyn.remove("Mariam");
     HDyn.print();
 
     return 0;
