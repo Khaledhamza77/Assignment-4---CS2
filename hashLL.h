@@ -16,9 +16,11 @@ private:
     int numElem;
     Node* table[10];
     int Hash(string Name){return int(Name[0])%10;}
+    int numCollisions;
 public:
     HashTable(){
         numElem=0;
+        numCollisions=0;
         for(int i=0;i<10;i++){table[i]=NULL;}
     }
     void insert(string Name, int a, int s, int e){
@@ -26,12 +28,12 @@ public:
         n->Name=Name; n->Age=a; n->salary=s; n->Exp=e; n->next=NULL;
         int index=Hash(Name);
         if(table[index]==NULL){
-            table[index]=n;
+            table[index]=n;numElem++;
         }
         else{
             Node*p=table[index];
             while(p->Name!=Name && p->next!=NULL){p=p->next;}
-            if(p->next==NULL){p->next=n;numElem++;}
+            if(p->next==NULL){p->next=n;numElem++;numCollisions++;}
             else{cout<<"This entry already exists!\n";}
         }
     }
@@ -68,5 +70,8 @@ public:
                 cout<<endl;
             }
         }
+    }
+    float get_CollRate(){
+        return static_cast<float>(numCollisions)/static_cast<float>(numElem);
     }
 };

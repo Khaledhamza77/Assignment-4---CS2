@@ -5,8 +5,7 @@
 #include<fstream>
 using namespace std;
 
-template<typename T>
-void readData(T** &table, int row, int &line){
+void readData(string** &table, int row, int &line){
     ifstream myfile;
     myfile.open("data.txt");
     string mytext[36];//36 is the number of lines in data.txt
@@ -18,7 +17,6 @@ void readData(T** &table, int row, int &line){
     }
 }
 
-template<typename T, typename Q>
 int main(){
     HashTable HLL;
     HashTabDyn HDyn;
@@ -32,18 +30,32 @@ int main(){
     HLL.insert("Abdallah",29,7000,4);
     HLL.insert("Fatma",21,3000,1);
     HLL.print();
+    cout<<"The collision rate is: "<<HLL.get_CollRate()<<endl;
     cout<<"--------------------------------\n";
     HLL.remove("Mariam");
     HLL.print();
+    cout<<"The collision rate is: "<<HLL.get_CollRate()<<endl;
+    cout<<"--------------------------------\n";
 
-    T** table = new T*[9];
+    string** table = new string*[9];
     for(int i=0;i<9;i++){
-        table[i]=new Q[4];
+        table[i]=new string[4];
     }
     int line=0;
-    for(int i=0;i<4;i++){
+    for(int i=0;i<9;i++){
         readData(table,i,line);
     }
+
+    for(int i=0;i<9;i++){
+        HDyn.insert(table[i]);
+    }
+
+    HDyn.print();
+    cout<<"The collision rate is: "<<HDyn.get_CollRate()<<endl;
+    cout<<"--------------------------------\n";
+    HDyn.remove(table[3]);
+    HDyn.print();
+    cout<<"The collision rate is: "<<HDyn.get_CollRate()<<endl;
 
     return 0;
 }
