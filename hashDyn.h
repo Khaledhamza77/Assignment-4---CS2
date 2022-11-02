@@ -1,54 +1,45 @@
 #include<iostream>
 #include<string>
+#include"employee.h"
 using namespace std;
 
 class HashTabDyn{
 private:
     int numElem;
-    string** table;
+    Employee* table;
     int Hash(string Name){return int(Name[0])%10;}
     int numCollisions;
 public:
     HashTabDyn(){
         numElem=0;
         numCollisions=0;
-        table = new string*[10];
-        for(int i=0;i<10;i++){
-            table[i]=new string[4];
-        }
-        for(int i=0;i<10;i++){
-            for(int j=0;j<4;j++){
-                table[i][j]="";
-            }
-        }
+        table = new Employee[10];
     }
     ~HashTabDyn(){
-        for(int i=0;i<9;i++){
-            delete []table[i];
-        }
         delete []table;
     }
-    void insert(string* data){
-        int index=Hash(data[0]);
-        if(table[index][0]==""){
-            table[index]=data;numElem++;
+    void insert(Employee x){
+        int index=Hash(x.get_Name());
+        if(table[index].get_Name()==""){
+            table[index]=x;numElem++;
         }
         else{
-            while(table[index][0]!="" && table[index][0]!=data[0]){index=(index+1)%10;}
-            if(table[index][0]==""){table[index]=data;numElem++;numCollisions++;}
+            while(table[index].get_Name()!="" && table[index].get_Name()!=x.get_Name()){index=(index+1)%10;}
+            if(table[index].get_Name()==""){table[index]=x;numElem++;numCollisions++;}
             else cout<<"This person is already in the table!\n";
         }
     }
-    void remove(string* data){
-        int index=Hash(data[0]);
-        if(table[index][0]=="")cout<<"There is nothing to remove!\n";
-        else if(table[index][0]==data[0]){
-            table[index][0]="";numElem--;
+    void remove(string Name){
+        int index=Hash(Name);
+        if(table[index].get_Name()=="")cout<<"There is nothing to remove!\n";
+        else if(table[index].get_Name()==Name){
+            table[index].set_Name("");table[index].set_age("");table[index].set_exp("");table[index].set_salary("");
+            numElem--;
         }
         else{
             for(int i=0;i<10;i++){
-                if(table[i][0]==data[0]){
-                    for(int j=0;j<4;j++) table[i][j]="";
+                if(table[i].get_Name()==Name){
+                    table[index].set_Name("");table[index].set_age("");table[index].set_exp("");table[index].set_salary("");
                     numElem--;
                 }
             }
@@ -57,10 +48,7 @@ public:
     void print(){
         for(int i=0;i<10;i++){
             cout<<i<<": ";
-            for(int j=0;j<4;j++){
-                if(table[i][j]!="")
-                    cout<<table[i][j]<<" ";
-            }
+            if(table[i].get_Name()!="") cout<<table[i].get_Name()<<" ";
             cout<<endl;
         }
         cout<<"The collision rate is: "<<numCollisions<<"/"<<numElem<<" or "<<this->get_CollRate()<<endl;

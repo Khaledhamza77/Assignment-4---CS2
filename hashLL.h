@@ -1,12 +1,10 @@
 #include<iostream>
 #include<string>
+#include"employee.h"
 using namespace std;
 
 struct Node{
-    string Name;
-    int Age;
-    int salary;
-    int Exp;
+    Employee e;
     Node* next;
 };
 
@@ -23,16 +21,16 @@ public:
         numCollisions=0;
         for(int i=0;i<10;i++){table[i]=NULL;}
     }
-    void insert(string Name, int a, int s, int e){
+    void insert(Employee x){
         Node* n = new Node;
-        n->Name=Name; n->Age=a; n->salary=s; n->Exp=e; n->next=NULL;
-        int index=Hash(Name);
+        n->e=x;n->next=NULL;
+        int index=Hash(x.get_Name());
         if(table[index]==NULL){
             table[index]=n;numElem++;
         }
         else{
             Node*p=table[index];
-            while(p->Name!=Name && p->next!=NULL){p=p->next;}
+            while(p->e.get_Name()!=x.get_Name() && p->next!=NULL){p=p->next;}
             if(p->next==NULL){p->next=n;numElem++;numCollisions++;}
             else{cout<<"This entry already exists!\n";}
         }
@@ -41,13 +39,13 @@ public:
         int index=Hash(Name);
         Node*p=table[index];Node*previous=p;Node*next=p;
         if(table[index]==NULL){cout<<"There is nothing to remove\n";}
-        else if(table[index]->Name==Name){
+        else if(table[index]->e.get_Name()==Name){
            previous->next=next;
            delete p;
            numElem--;  
         }
         else{
-            while(p!=NULL && p->Name!=Name){
+            while(p!=NULL && p->e.get_Name()!=Name){
                 previous=p;p=p->next;next=p->next;
             }
             if(p==NULL){cout<<"Name isn't found!\n";}
@@ -64,7 +62,7 @@ public:
                 cout<< i <<": ";
                 Node* p=table[i];
                 while(p!=NULL){
-                    cout<< p->Name <<" ";
+                    cout<<p->e.get_Name()<<" ";
                     p=p->next;
                 }
                 cout<<endl;
