@@ -30,11 +30,9 @@ int main(){
     HLL.insert("Abdallah",29,7000,4);
     HLL.insert("Fatma",21,3000,1);
     HLL.print();
-    cout<<"The collision rate is: "<<HLL.get_CollRate()<<endl;
     cout<<"--------------------------------\n";
     HLL.remove("Mariam");
     HLL.print();
-    cout<<"The collision rate is: "<<HLL.get_CollRate()<<endl;
     cout<<"--------------------------------\n";
 
     string** table = new string*[9];
@@ -51,11 +49,9 @@ int main(){
     }
 
     HDyn.print();
-    cout<<"The collision rate is: "<<HDyn.get_CollRate()<<endl;
     cout<<"--------------------------------\n";
     HDyn.remove(table[3]);
     HDyn.print();
-    cout<<"The collision rate is: "<<HDyn.get_CollRate()<<endl;
 
     return 0;
 }

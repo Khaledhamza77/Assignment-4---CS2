@@ -70,6 +70,7 @@ public:
                 cout<<endl;
             }
         }
+        cout<<"The collision rate is: "<<numCollisions<<"/"<<numElem<<" or "<<this->get_CollRate()<<endl;
     }
     float get_CollRate(){
         return static_cast<float>(numCollisions)/static_cast<float>(numElem);

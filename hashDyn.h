@@ -34,8 +34,8 @@ public:
             table[index]=data;numElem++;
         }
         else{
-            while(table[index][0]!="" && table[index][0]!=data[0]){index=(index+1)%10;numCollisions++;}
-            if(table[index][0]==""){table[index]=data;numElem++;}
+            while(table[index][0]!="" && table[index][0]!=data[0]){index=(index+1)%10;}
+            if(table[index][0]==""){table[index]=data;numElem++;numCollisions++;}
             else cout<<"This person is already in the table!\n";
         }
     }
@@ -63,6 +63,7 @@ public:
             }
             cout<<endl;
         }
+        cout<<"The collision rate is: "<<numCollisions<<"/"<<numElem<<" or "<<this->get_CollRate()<<endl;
     }
     float get_CollRate(){
         return static_cast<float>(numCollisions)/static_cast<float>(numElem);
